@@ -17,4 +17,4 @@ jobs:
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push https://ritijindal30:$HF_TOKEN@huggingface.co/spaces/ritijindal30/Conversational_RAG_with_PDFs_Upload_and_chat_history main
+        run: git push --force https://ritijindal30:$HF_TOKEN@huggingface.co/spaces/ritijindal30/Conversational_RAG_with_PDFs_Upload_and_chat_history main
