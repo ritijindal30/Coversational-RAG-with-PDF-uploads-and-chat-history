@@ -1,4 +1,5 @@
 name: Sync to Hugging Face hub
+
 on:
   push:
     branches: [main]
@@ -14,7 +15,17 @@ jobs:
         with:
           fetch-depth: 0
           lfs: true
+
+      # Remove tracked PDFs before pushing
+      - name: Remove PDFs from repo
+        run: |
+          echo "*.pdf" >> .gitignore
+          git rm --cached -f *.pdf || echo "No PDFs to remove"
+          git add .gitignore
+          git commit -m "Ignore and remove PDFs" || echo "Nothing to commit"
+
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push --force https://ritijindal30:$HF_TOKEN@huggingface.co/spaces/ritijindal30/Conversational_RAG_with_PDFs_Upload_and_chat_history main
+        run: |
+          git push --force https://ritijindal30:$HF_TOKEN@huggingface.co/spaces/ritijindal30/Conversational_RAG_with_PDFs_Upload_and_chat_history main
